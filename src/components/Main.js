@@ -19,8 +19,7 @@ class Main extends React.Component {
     maxStudentsPerGroup: 0
   };
 
-  // You can do it =)
-  // https://www.youtube.com/watch?v=D_Vg4uyYwEk
+  
 
   componentDidMount() {
     /*
