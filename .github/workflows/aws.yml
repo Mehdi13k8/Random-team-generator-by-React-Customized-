@@ -1,0 +1,38 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies and build
+      run: |
+        # Add commands to install any dependencies and build your project
+        # For example, if you're using npm:
+        # npm install
+        # npm run build
+
+    - name: Transfer files to EC2
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}  # Add your EC2 instance public IP or DNS here
+        username: ${{ secrets.EC2_USERNAME }}  # Add your EC2 instance SSH username here
+        key: ${{ secrets.EC2_PRIVATE_KEY }}  # Add your EC2 instance SSH private key here
+        source: ./dist/*  # Change this path to match the build output directory of your project
+        target: /var/www/html/  # Change this path to the directory where your web server serves files
+
+    - name: SSH into EC2 and restart web server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}  # Add your EC2 instance public IP or DNS here
+        username: ${{ secrets.EC2_USERNAME }}  # Add your EC2 instance SSH username here
+        key: ${{ secrets.EC2_PRIVATE_KEY }}  # Add your EC2 instance SSH private key here
+        script: sudo service apache2 restart  # Modify this command to restart your web server
