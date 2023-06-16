@@ -34,12 +34,11 @@ class Main extends React.Component {
           id: i.id,
           name: i.name,
           active: i.active,
-          image: image.avatar()
+          image: "inolab/" + i.image || image.avatar()
         }
       ])
     );
 
-    console.log(students);
 
     this.setState({
       students
@@ -85,7 +84,7 @@ class Main extends React.Component {
     students &&
       students.forEach(i => {
         displayStudents.push(
-          <MemberCard handleActive={this.handleActive} obj={i}>
+          <MemberCard key={i.id} handleActive={this.handleActive} obj={i}>
             <MemberData obj={i} />
           </MemberCard>
         );
@@ -115,6 +114,19 @@ class Main extends React.Component {
               maxStudentsPerGroup={maxStudentsPerGroup}
             />
           )}
+          {maxStudentsPerGroup > 0 && students && (
+            <button
+              className="btn btn--reset"
+              onClick={() => {
+                this.setState({
+                  maxStudentsPerGroup: 0
+                });
+              }}
+            >
+              Reset
+            </button>
+          )}
+
         </div>
       </>
     );

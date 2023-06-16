@@ -35,7 +35,7 @@ class MemberCard extends React.Component {
         const statusClass = active ? "active": "inactive";
 
         return (
-            <div className={`card mb-3 ${statusClass}`} onClick={this.handleClick}>
+            <div key={this.props.obj.id} className={`card mb-3 ${statusClass}`} onClick={this.handleClick}>
                 <div className="row no-gutters">
                     { /* HERE START */}
                     {this.props.children}
