@@ -3,7 +3,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - main  # Change this to your main branch name
+      - master  # Change this to your main branch name
 
 jobs:
   deploy:
@@ -19,6 +19,12 @@ jobs:
         # For example, if you're using npm:
         # npm install
         # npm run build
+        # Install Apache web server
+        sudo apt-get update
+        sudo apt-get install apache2 -y
+        # Configure Apache for your project
+        sudo rm /var/www/html/index.html
+        sudo cp -r ./dist/* /var/www/html/
 
     - name: Transfer files to EC2
       uses: appleboy/scp-action@master
