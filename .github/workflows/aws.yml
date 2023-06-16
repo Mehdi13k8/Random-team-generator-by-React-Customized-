@@ -17,8 +17,8 @@ jobs:
       run: |
         # Add commands to install any dependencies and build your project
         # For example, if you're using npm:
-        # npm install
-        # npm run build
+        npm install
+        npm run build
         # Install Apache web server
         sudo apt-get update
         sudo apt-get install apache2 -y
